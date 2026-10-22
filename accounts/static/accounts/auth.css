@@ -126,3 +126,67 @@ button:focus-visible {
         transition-duration: 0.01ms !important;
     }
 }
+
+body:has(input[name='Name']) {
+    background-color: #edf4ef;
+    background-image:
+        radial-gradient(ellipse at 12% 12%, rgb(196 224 207 / 48%), transparent 34%),
+        radial-gradient(ellipse at 88% 88%, rgb(215 233 219 / 58%), transparent 38%);
+}
+
+center:has(input[name='Name']) {
+    position: relative;
+    overflow: hidden;
+    width: min(100%, 520px);
+    padding: 42px 44px;
+    border: 1px solid rgb(212 228 217 / 90%);
+    border-radius: 18px;
+    box-shadow: 0 24px 70px rgb(25 52 44 / 13%);
+}
+
+center:has(input[name='Name'])::before {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 5px;
+    background: linear-gradient(90deg, #176b58, #62a77f);
+    content: '';
+}
+
+center:has(input[name='Name']) > br {
+    display: none;
+}
+
+center:has(input[name='Name']) h1:first-of-type {
+    margin-bottom: 8px;
+    color: #537166;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+center:has(input[name='Name']) h1:nth-of-type(2) {
+    margin-bottom: 26px;
+    font-size: 32px;
+    letter-spacing: -0.035em;
+}
+
+center:has(input[name='Name']) form input:not([type='radio']):hover {
+    border-color: #a9c4b4;
+}
+
+center:has(input[name='Name']) button {
+    margin-top: 4px;
+    border-radius: 8px;
+    box-shadow: 0 8px 18px rgb(23 107 88 / 18%);
+}
+
+@media (max-width: 480px) {
+    center:has(input[name='Name']) {
+        padding: 36px 24px;
+        border-radius: 14px;
+    }
+
+    center:has(input[name='Name']) h1:nth-of-type(2) {
+        font-size: 28px;
+    }
+}

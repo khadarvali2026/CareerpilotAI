@@ -20,6 +20,6 @@ from accounts.views import signup,login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('signup/',signup),
+    path("",signup),
     path("login/",login,name="loginlink"),
 ]  
