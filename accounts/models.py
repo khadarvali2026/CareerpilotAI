@@ -14,7 +14,9 @@ class User(models.Model):
         return self.Name
 class UserProfile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
+    ProfilePic=models.ImageField(upload_to="ProfilePic/",null=True,blank=True)
     Name=models.CharField(max_length=50)
+    
     Education=models.CharField(max_length=50)
     PassedOut=models.PositiveIntegerField()
     Bio=models.TextField(max_length=250)
@@ -47,4 +49,39 @@ class JobApplicationTracker(models.Model):
     Bond=models.PositiveIntegerField(default=0)
     OriginalDocuments=models.BooleanField(default=False)
     JobURL=models.URLField(blank=True)
+    
+    def __str__(self):
+        return self.CompanyName
+    
+class Resume(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    Title=models.CharField(max_length=50)
+    ResumeFile=models.FileField(upload_to="Resume/")
+    UploadDate=models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.Title
+class AIAnalysis(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    Resume=models.ForeignKey(Resume,on_delete=models.CASCADE)
+    JobApplication=models.ForeignKey(JobApplicationTracker,on_delete=models.SET_NULL,null=True,blank=True)
+    MatchScore=models.DecimalField(max_digits=5,decimal_places=2,null=True,blank=True)
+    AnalysisResult=models.TextField()
+    Recommendations=models.TextField()
+    CreatedAt=models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.AnalysisResult
+    
+class InterviewPractice(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    JobApplication=models.ForeignKey(JobApplicationTracker,on_delete=models.SET_NULL,null=True,blank=True)
+    Question=models.TextField(max_length=500,null=True,blank=True)
+    UserAnswer=models.TextField(max_length=500,null=True,blank=True)
+    Feedback=models.TextField(blank=True)
+    Score=models.PositiveIntegerField(null=True,blank=True)
+    CreatedAt=models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.Question or "InterviewPractice"
     
